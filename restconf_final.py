@@ -51,18 +51,19 @@ def create():
 
 
 def delete():
-    resp = requests.<!!!REPLACEME with the proper HTTP Method!!!>(
-        <!!!REPLACEME with URL!!!>, 
+    resp = requests.delete(
+        api_url + "/data/ietf-interfaces:interfaces/interface=Loopback65070099", #Add
         auth=basicauth, 
-        headers=<!!!REPLACEME with HTTP Header!!!>, 
+        headers=headers, #Add
         verify=False
         )
 
     if(resp.status_code >= 200 and resp.status_code <= 299):
         print("STATUS OK: {}".format(resp.status_code))
-        return "<!!!REPLACEME with proper message!!!>"
+        return "Interface Loopback65070099 deleted."
     else:
         print('Error. Status Code: {}'.format(resp.status_code))
+        return "Cannot delete: Interface loopback 65070099" #Add
 
 
 def enable():
