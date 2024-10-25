@@ -117,26 +117,26 @@ def disable():
 
 
 def status():
-    api_url_status = "<!!!REPLACEME with URL of RESTCONF Operational API!!!>"
+    api_url_status = "https://10.0.15.182/restconf/data/ietf-interfaces:interfaces-state/interface=Loopback65070099" #Add
 
-    resp = requests.<!!!REPLACEME with the proper HTTP Method!!!>(
-        <!!!REPLACEME with URL!!!>, 
+    resp = requests.get(
+        api_url_status, #Add
         auth=basicauth, 
-        headers=<!!!REPLACEME with HTTP Header!!!>, 
+        headers=headers, #Add
         verify=False
         )
 
     if(resp.status_code >= 200 and resp.status_code <= 299):
         print("STATUS OK: {}".format(resp.status_code))
         response_json = resp.json()
-        admin_status = <!!!REPLACEME!!!>
-        oper_status = <!!!REPLACEME!!!>
+        admin_status = response_json["ietf-interfaces:interface"]["admin-status"] #Add
+        oper_status = response_json["ietf-interfaces:interface"]["oper-status"] #Add
         if admin_status == 'up' and oper_status == 'up':
-            return "<!!!REPLACEME with proper message!!!>"
+            return "Interface loopback 65070099 is enabled" #Add
         elif admin_status == 'down' and oper_status == 'down':
-            return "<!!!REPLACEME with proper message!!!>"
+            return "Interface loopback 65070099 is disabled" #Add
     elif(resp.status_code == 404):
         print("STATUS NOT FOUND: {}".format(resp.status_code))
-        return "<!!!REPLACEME with proper message!!!>"
+        return "No Interface loopback 65070099" #Add
     else:
         print('Error. Status Code: {}'.format(resp.status_code))
